@@ -29,17 +29,6 @@ class Home extends StatelessWidget {
     );
   }
 
-  DragTarget<int> _dragTarget(BuildContext context){
-    return DragTarget<int>(
-      onAccept: (data) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Accepted color value: $data')),
-        );
-      },
-      builder: (context, candidateData, rejectedData) => candidateData.isEmpty? Text('Drop here!', style: TextStyle(color: Colors.black)) : Text('Painting Color: ${candidateData.first}', TextStyle(color: Color(candidateData[0]))),
-    );
-  }
-
   GestureDetector _basicGestures(BuildContext context) {
     return GestureDetector(
       onTap: () {
