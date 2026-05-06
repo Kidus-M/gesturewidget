@@ -19,11 +19,24 @@ class Home extends StatelessWidget {
             _basicGestures(context),
             Divider(thickness: 2.0),
             draggableWidget(),
+            Divider(thickness: 2.0, color: Colors.black),
+            _dragTarget(context)
           ],
         ),
       ),
       )
       )
+    );
+  }
+
+  DragTarget<int> _dragTarget(BuildContext context){
+    return DragTarget<int>(
+      onAccept: (data) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Accepted color value: $data')),
+        );
+      },
+      builder: (context, candidateData, rejectedData) => candidateData.isEmpty? Text('Drop here!', style: TextStyle(color: Colors.black)) : Text('Painting Color: ${candidateData.first}', TextStyle(color: Color(candidateData[0]))),
     );
   }
 
