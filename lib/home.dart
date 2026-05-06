@@ -19,6 +19,8 @@ class Home extends StatelessWidget {
             _basicGestures(context),
             Divider(thickness: 2.0),
             draggableWidget(),
+            Divider(thickness: 2.0),
+            dragTargetWidget(context),
           ],
         ),
       ),
@@ -74,6 +76,18 @@ class Home extends StatelessWidget {
           Text('Drag Me'),
         ],
       )
+    );
+  }
+
+  DragTarget<int> dragTargetWidget(BuildContext context) {
+    return DragTarget<int>(
+      onAcceptWithDetails: (colorValue) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Dropped color value: ${colorValue.data}')),
+        );
+      },
+      builder: (context, List<dynamic> acceptedData, List<dynamic> rejectedData) => acceptedData.isEmpty?
+      Text( 'Drop Here', style: TextStyle(color: Colors.black)) : Text('Painting Color: $acceptedData', style: TextStyle(color: Color(acceptedData[0]))),
     );
   }
 }
